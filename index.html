@@ -3,11 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>পাঠক সমাবেশ | Pathak Shamabesh</title>
+    <title>Pathak Shamabesh</title>
     
-    <!-- Google Fonts -->
+    <!-- Google Fonts for Bengali Typography -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- Noto Serif Bengali ফন্টটি এখানে যুক্ত করা হয়েছে -->
     <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600;700&family=Noto+Serif+Bengali:wght@400;500;600;700&display=swap" rel="stylesheet">
     
     <!-- FontAwesome for Icons -->
@@ -17,29 +18,29 @@
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 
     <style>
-        /* ================= Base Styles & Variables ================= */
         :root {
             --primary-color: #2c3e50;
-            --secondary-color: #e74c3c;
-            --bg-light: #f9f9f9;
-            --text-dark: #333;
-            --text-light: #fff;
-            --font-main: 'Hind Siliguri', sans-serif;
-            --font-serif: 'Noto Serif Bengali', serif;
+            --secondary-color: #e67e22;
+            --bg-color: #f9f9f9;
+            --yellow-15: rgba(255, 215, 0, 0.15);
+            --text-color: #333;
+            --white: #ffffff;
+            --transition: all 0.3s ease;
         }
 
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            font-family: 'Hind Siliguri', sans-serif;
+            scroll-behavior: smooth;
         }
 
         body {
-            font-family: var(--font-main);
-            color: var(--text-dark);
+            background-color: var(--bg-color);
+            color: var(--text-color);
             line-height: 1.6;
             overflow-x: hidden;
-            background-color: var(--bg-light);
         }
 
         a {
@@ -47,187 +48,313 @@
             color: inherit;
         }
 
-        /* ================= Splash Screen ================= */
-        .splash-screen {
+        /* --- Splash Screen --- */
+        #splash-screen {
             position: fixed;
             top: 0;
             left: 0;
-            width: 100%;
+            width: 100vw;
             height: 100vh;
-            background-color: var(--bg-light);
+            background-color: var(--white);
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
             z-index: 9999;
-            transition: opacity 0.5s ease;
+            transition: opacity 0.5s ease, visibility 0.5s ease;
         }
-
+        #splash-screen.hidden {
+            opacity: 0;
+            visibility: hidden;
+        }
         .splash-logo {
-            animation: pulse 2s infinite;
-            max-width: 200px;
+            max-width: 250px;
+            height: auto;
+            animation: popIn 0.8s ease-out forwards;
         }
-
-        @keyframes pulse {
-            0% { transform: scale(1); opacity: 1; }
-            50% { transform: scale(1.1); opacity: 0.8; }
+        .splash-text {
+            font-size: 1.2rem;
+            color: var(--secondary-color);
+            margin-top: 15px;
+            opacity: 0;
+            animation: fadeIn 1s ease-out 0.5s forwards;
+            font-weight: 600;
+            letter-spacing: 1px;
+        }
+        
+        @keyframes popIn {
+            0% { transform: scale(0.5); opacity: 0; }
             100% { transform: scale(1); opacity: 1; }
         }
+        @keyframes fadeIn {
+            to { opacity: 1; }
+        }
 
-        /* ================= Header & Navigation ================= */
+        /* --- Sticky Header --- */
         header {
-            position: absolute;
+            position: fixed;
             top: 0;
             left: 0;
             width: 100%;
-            padding: 20px 50px;
+            background-color: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            z-index: 1000;
+            padding: 10px 5%;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            z-index: 1000;
-            background: rgba(255, 255, 255, 0.95);
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: var(--transition);
         }
-
-        .logo h1 {
-            font-family: var(--font-serif);
-            color: var(--primary-color);
-            font-size: 24px;
-            font-weight: 700;
+        .logo-header img {
+            max-height: 50px;
+            width: auto;
         }
-
         nav ul {
-            display: flex;
             list-style: none;
+            display: flex;
             gap: 20px;
         }
-
         nav ul li a {
             font-weight: 500;
-            font-size: 16px;
-            color: var(--primary-color);
-            transition: color 0.3s;
+            font-size: 1rem;
+            transition: var(--transition);
         }
-
         nav ul li a:hover {
             color: var(--secondary-color);
         }
-
+        
         .mobile-menu-btn {
             display: none;
-            font-size: 24px;
+            font-size: 1.5rem;
             cursor: pointer;
-            color: var(--primary-color);
-            background: none;
-            border: none;
         }
 
-        /* ================= Hero Section ================= */
-        .hero {
-            height: 100vh;
-            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('hero-bg.webp') center/cover;
+        /* --- Home Section --- */
+        #home {
+            height: 50vh;
+            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1507842217343-583bb7270b66?q=80&w=2000&auto=format&fit=crop') center/cover no-repeat;
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
             text-align: center;
-            color: var(--text-light);
+            color: var(--white);
             padding: 0 20px;
+            margin-top: 0;
         }
-
-        .hero h2 {
-            font-size: 3rem;
-            margin-bottom: 15px;
-            font-family: var(--font-serif);
-        }
-
-        .hero p {
+        .home-subtitle {
             font-size: 1.2rem;
-            margin-bottom: 30px;
+            font-weight: 300;
+            letter-spacing: 2px;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            color: var(--secondary-color);
         }
-
+        .home-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            max-width: 800px;
+        }
         .btn {
             padding: 12px 30px;
-            background: var(--secondary-color);
-            color: white;
-            border-radius: 5px;
+            background-color: var(--secondary-color);
+            color: var(--white);
+            border-radius: 30px;
+            font-size: 1.1rem;
             font-weight: 600;
-            transition: background 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            transition: var(--transition);
+            box-shadow: 0 4px 15px rgba(230, 126, 34, 0.4);
         }
-
         .btn:hover {
-            background: #c0392b;
+            background-color: #d35400;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(230, 126, 34, 0.6);
         }
 
-        /* ================= About Section (Only Noto Serif Bengali) ================= */
-        .about-section {
-            padding: 80px 10%;
+        /* --- Common Section Styles --- */
+        section {
+            padding: 80px 5%;
+        }
+        .section-title {
             text-align: center;
-            background-color: var(--bg-light);
-            font-family: var(--font-serif); /* শুধু এই সেকশনে Noto Serif Bengali ফন্ট দেওয়া হলো */
-        }
-
-        .about-section h2 {
-            font-size: 2.5rem;
+            font-size: 2rem;
             color: var(--primary-color);
-            margin-bottom: 20px;
+            margin-bottom: 40px;
             font-weight: 700;
         }
 
-        .about-section p {
-            font-size: 1.2rem;
-            color: #555;
-            max-width: 800px;
+        /* --- About Section --- */
+        .about-card {
+            background-color: var(--yellow-15);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            max-width: 900px;
             margin: 0 auto;
-            line-height: 1.8;
+            border: 1px solid rgba(255, 215, 0, 0.3);
+            /* শুধুমাত্র এই অংশের ফন্ট Noto Serif Bengali করা হলো */
+            font-family: 'Noto Serif Bengali', serif;
+        }
+        /* ভেতরের ইলিমেন্টগুলো যেন নতুন ফন্ট পায় সেজন্য */
+        .about-card p, .about-card ul, .about-card li, .about-card strong {
+            font-family: 'Noto Serif Bengali', serif;
+        }
+        .about-card p {
+            font-size: 1.1rem;
+            margin-bottom: 15px;
+            text-align: justify;
+        }
+        .about-card ul {
+            margin-left: 20px;
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+        }
+        .about-card ul li {
+            margin-bottom: 5px;
         }
 
-        /* ================= CSS Grid Sections ================= */
-        .grid-section {
-            padding: 80px 10%;
-        }
-
-        .section-title {
-            text-align: center;
-            font-size: 2.5rem;
-            margin-bottom: 50px;
-            color: var(--primary-color);
-            font-family: var(--font-serif);
-        }
-
-        .grid-container {
+        /* --- Dedicated Section --- */
+        .grid-3 {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 30px;
+            max-width: 1100px;
+            margin: 0 auto;
         }
-
-        .card {
-            background: white;
+        .feature-card {
+            background: var(--white);
             padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            border-radius: 15px;
             text-align: center;
-            transition: transform 0.3s;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            transition: var(--transition);
         }
-
-        .card:hover {
+        .feature-card:hover {
             transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
         }
-
-        .card i {
-            font-size: 40px;
+        .feature-icon {
+            font-size: 2.5rem;
             color: var(--secondary-color);
             margin-bottom: 20px;
         }
-
-        .card h3 {
+        .feature-card h3 {
+            font-size: 1.2rem;
             margin-bottom: 15px;
-            font-size: 1.5rem;
+            color: var(--primary-color);
         }
 
-        /* ================= Floating Buttons ================= */
-        .floating-whatsapp {
+        /* --- Outlets Section --- */
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 40px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        .outlet-card {
+            background: var(--white);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+            border-top: 5px solid var(--primary-color);
+        }
+        .outlet-card h3 {
+            font-size: 1.4rem;
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .outlet-info p {
+            margin-bottom: 10px;
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+        }
+        .outlet-info i {
+            color: var(--secondary-color);
+            margin-top: 5px;
+        }
+        .outlet-links {
+            margin-top: 20px;
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        .btn-outline {
+            padding: 8px 15px;
+            border: 1px solid var(--primary-color);
+            color: var(--primary-color);
+            border-radius: 20px;
+            font-size: 0.9rem;
+            transition: var(--transition);
+        }
+        .btn-outline:hover {
+            background: var(--primary-color);
+            color: var(--white);
+        }
+
+        /* --- Contact Section --- */
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 20px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .contact-item {
+            background: var(--white);
+            padding: 20px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            transition: var(--transition);
+        }
+        .contact-item:hover {
+            transform: scale(1.05);
+        }
+        .contact-item i {
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+        .c-call i { color: #27ae60; }
+        .c-wa i { color: #25D366; }
+        .c-fb i { color: #1877F2; }
+        .c-yt i { color: #FF0000; }
+
+        /* --- Footer --- */
+        footer {
+            background: var(--primary-color);
+            color: var(--white);
+            text-align: center;
+            padding: 40px 20px;
+        }
+        .footer-logo img {
+            max-height: 70px;
+            width: auto;
+            margin-bottom: 15px;
+            background-color: white;
+            padding: 5px;
+            border-radius: 10px;
+        }
+        .footer-since {
+            font-size: 1rem;
+            color: #ccc;
+            margin-bottom: 20px;
+        }
+
+        /* --- Floating Actions --- */
+        .float-wa {
             position: fixed;
             bottom: 30px;
-            left: 30px;
+            right: 30px;
             background: #25D366;
             color: white;
             width: 60px;
@@ -236,42 +363,45 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            font-size: 30px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            font-size: 2rem;
+            box-shadow: 0 4px 15px rgba(37, 211, 102, 0.4);
             z-index: 100;
+            transition: var(--transition);
         }
-
+        .float-wa:hover {
+            transform: scale(1.1);
+        }
+        
         .back-to-top {
             position: fixed;
             bottom: 30px;
-            right: 30px;
+            left: 30px;
             background: var(--primary-color);
             color: white;
-            width: 50px;
-            height: 50px;
+            width: 45px;
+            height: 45px;
             border-radius: 50%;
             display: flex;
             justify-content: center;
             align-items: center;
-            font-size: 20px;
-            border: none;
+            font-size: 1.2rem;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            z-index: 100;
             cursor: pointer;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
             opacity: 0;
             visibility: hidden;
-            transition: opacity 0.3s, visibility 0.3s;
-            z-index: 100;
+            transition: var(--transition);
         }
-
         .back-to-top.show {
             opacity: 1;
             visibility: visible;
         }
 
-        /* ================= Responsive Design ================= */
+        /* --- Responsive Design --- */
         @media (max-width: 768px) {
-            header { padding: 15px 20px; }
-            
+            .mobile-menu-btn {
+                display: block;
+            }
             nav ul {
                 display: none;
                 flex-direction: column;
@@ -279,140 +409,230 @@
                 top: 100%;
                 left: 0;
                 width: 100%;
-                background: white;
-                padding: 20px 0;
-                box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-                text-align: center;
+                background: var(--white);
+                padding: 20px;
+                box-shadow: 0 10px 10px rgba(0,0,0,0.1);
             }
-
-            nav ul.active { display: flex; }
-            .mobile-menu-btn { display: block; }
-            .hero h2 { font-size: 2rem; }
+            nav ul.active {
+                display: flex;
+            }
+            .home-title {
+                font-size: 1.8rem;
+            }
+            .about-card {
+                padding: 20px;
+            }
+            .float-wa {
+                bottom: 20px;
+                right: 20px;
+                width: 50px;
+                height: 50px;
+                font-size: 1.5rem;
+            }
+            .back-to-top {
+                bottom: 20px;
+                left: 20px;
+            }
         }
     </style>
 </head>
 <body>
 
     <!-- Splash Screen -->
-    <div class="splash-screen" id="splashScreen">
-        <!-- ইমেজ লিংকটি আপডেট করা হয়েছে -->
-        <img src="image_56813d.png" alt="Pathak Shamabesh Logo" class="splash-logo">
+    <div id="splash-screen">
+        <img src="Pathak%20color%20Final.png" alt="Pathak Shamabesh Logo" class="splash-logo">
     </div>
 
     <!-- Header -->
-    <header id="mainHeader">
-        <div class="logo">
-            <a href="#"><h1>পাঠক সমাবেশ</h1></a>
-        </div>
+    <header id="header">
+        <a href="#home" class="logo-header">
+            <img src="Pathak%20color%20Final.png" alt="Pathak Shamabesh">
+        </a>
+        <div class="mobile-menu-btn" onclick="toggleMenu()"><i class="fas fa-bars"></i></div>
         <nav>
-            <ul id="navMenu">
+            <ul id="nav-links">
+                <li><a href="#home">হোম</a></li>
                 <li><a href="#about">আমাদের সম্পর্কে</a></li>
-                <li><a href="#features">ফিচারসমূহ</a></li>
+                <li><a href="#dedicated">ফিচারসমূহ</a></li>
                 <li><a href="#outlets">আউটলেট</a></li>
                 <li><a href="#contact">যোগাযোগ</a></li>
             </ul>
         </nav>
-        <button class="mobile-menu-btn" onclick="toggleMenu()">
-            <i class="fas fa-bars"></i>
-        </button>
     </header>
 
-    <!-- Hero Section -->
-    <section class="hero">
-        <div data-aos="fade-up" data-aos-duration="1000">
-            <h2>বইয়ের এক অনবদ্য ভুবন</h2>
-            <p>দেশি-বিদেশি অসংখ্য বইয়ের সমাহার নিয়ে পাঠক সমাবেশ আপনার অপেক্ষায়</p>
-            <a href="#outlets" class="btn">আমাদের আউটলেট ঘুরে দেখুন</a>
+    <!-- Home Section -->
+    <section id="home">
+        <div data-aos="zoom-in" data-aos-duration="1000">
+            <h1 class="home-title">"৪০ বছর ধরে পাঠকের মননে ও গড়নে পাঠক সমাবেশ"</h1>
+            <a href="https://pathakshamabesh.com/" class="btn" target="_blank">
+                <i class="fas fa-book"></i> Visit Online Store
+            </a>
         </div>
     </section>
 
     <!-- About Section -->
-    <section id="about" class="about-section">
-        <div data-aos="fade-up">
-            <h2>আমাদের সম্পর্কে</h2>
-            <p>পাঠক সমাবেশ কেবল একটি বইয়ের দোকান নয়, এটি জ্ঞান ও সংস্কৃতির একটি মিলনমেলা। দীর্ঘ বছর ধরে আমরা পাঠকদের কাছে মানসম্মত দেশি ও বিদেশি বই পৌঁছে দিচ্ছি। আমাদের লক্ষ্য হলো একটি সুস্থ ও রুচিশীল পাঠকসমাজ গড়ে তোলা, যেখানে প্রতিটি মানুষ তার পছন্দের বইটি খুঁজে পাবে খুব সহজেই।</p>
+    <section id="about">
+        <h2 class="section-title" data-aos="fade-up">আমাদের সম্পর্কে</h2>
+        <div class="about-card" data-aos="fade-up" data-aos-delay="100">
+            <p><strong>পাঠক সমাবেশ</strong> — শুধু একটি বইয়ের বিক্রয়কেন্দ্র নয়, এটি একটি চিন্তাশীল সমাজ গঠনের নির্ভরযোগ্য অংশীদার। ১৯৮৭ সালে ছোট পরিসরে যাত্রা শুরু করে, পাঠক সমাবেশ আজ বাংলাদেশের অন্যতম প্রধান ও গতিশীল বইভিত্তিক প্রতিষ্ঠান হিসেবে পরিচিত。</p>
+            <p>প্রতিষ্ঠানটির মূল শেকড় গ্রথিত রয়েছে বইয়ের প্রতি ভালোবাসা ও পাঠচর্চার প্রসারে।</p>
+            <p>পাঠক সমাবেশ বিশ্বাস করে—জ্ঞান অর্জন আর সহজ জীবনযাত্রা একে অপরের পরিপূরক। তাই আমরা প্রযুক্তির সর্বোচ্চ ব্যবহার করে বইপ্রেমী, সাধারণ ক্রেতা ও কর্পোরেট গ্রাহকদের জন্য নির্ভরযোগ্য সেবা নিশ্চিত করতে প্রতিশ্রুতিবদ্ধ।</p>
+            <p><strong>আমাদের রয়েছে:</strong></p>
+            <ul>
+                <li>হাজারো নিবন্ধিত পাঠক ও মেম্বার</li>
+                <li>দেশে-বিদেশে ডেলিভারি সুবিধা</li>
+                <li>বই উৎসব, ডিসকাউন্ট অফার ও CSR প্রোগ্রাম</li>
+                <li>প্রথিতযশা প্রকাশকের বইয়ের সরাসরি সংগ্রহ</li>
+                <li>কর্পোরেট ও ইনস্টিটিউশনাল অর্ডারের জন্য বিশেষ ব্যবস্থা</li>
+            </ul>
+            <p style="text-align: center; margin-top: 20px; font-weight: 600; color: var(--primary-color);">
+                এককথায়, পাঠক সমাবেশ মানেই পাঠ, প্রয়োজন ও প্রবৃদ্ধির সম্মিলিত ঠিকানা।
+            </p>
         </div>
     </section>
 
-    <!-- Features Section -->
-    <section id="features" class="grid-section">
-        <h2 class="section-title" data-aos="fade-up">আমাদের সেবাসমূহ</h2>
-        <div class="grid-container">
-            <div class="card" data-aos="fade-up" data-aos-delay="100">
-                <i class="fas fa-book-open"></i>
-                <h3>বিশাল সংগ্রহ</h3>
-                <p>দেশি-বিদেশি হাজারো দুর্লভ ও জনপ্রিয় বইয়ের এক বিশাল সমাহার রয়েছে আমাদের কাছে।</p>
+    <!-- Dedicated Section -->
+    <section id="dedicated">
+        <h2 class="section-title" data-aos="fade-up">পাঠক সমাবেশ নিবেদিত</h2>
+        <div class="grid-3">
+            <a href="https://pathakshamabesh.com/" target="_blank" class="feature-card" data-aos="fade-up" data-aos-delay="100">
+                <i class="fas fa-book-open feature-icon"></i>
+                <h3>পাঠক সমাবেশের বই দেখুন</h3>
+                <p class="btn-outline">Browse Books</p>
+            </a>
+            <a href="https://pathakshamabesh.com/gift-cards" target="_blank" class="feature-card" data-aos="fade-up" data-aos-delay="200">
+                <i class="fas fa-gift feature-icon"></i>
+                <h3>গিফট কার্ড (Gift Card)</h3>
+                <p class="btn-outline">Get a Gift Card</p>
+            </a>
+            <a href="https://pathakshamabesh.com/buy-books-at-cost-price" target="_blank" class="feature-card" data-aos="fade-up" data-aos-delay="300">
+                <i class="fas fa-tags feature-icon"></i>
+                <h3>Buy Books at Cost Price</h3>
+                <p class="btn-outline">Explore Offers</p>
+            </a>
+        </div>
+    </section>
+
+    <!-- Outlets Section -->
+    <section id="outlets">
+        <h2 class="section-title" data-aos="fade-up">আমাদের আউটলেটসমূহ</h2>
+        <div class="grid-2">
+            <!-- Outlet 1 -->
+            <div class="outlet-card" data-aos="fade-right">
+                <h3><i class="fas fa-building"></i> আউটলেট ১ (Katabon)</h3>
+                <div class="outlet-info">
+                    <p><i class="fas fa-map-marker-alt"></i> <span>278/3, Elephant Road (1st Floor), Katabon, Dhaka-1205</span></p>
+                    <p><i class="fas fa-clock"></i> <span>10 AM - 9 PM (Everyday)</span></p>
+                    <p><i class="fas fa-phone-alt"></i> <span>01841234601, 01894841856, +880 2-44612955</span></p>
+                </div>
+                <div class="outlet-links">
+                    <a href="https://maps.app.goo.gl/oxFePgu8bajZJ3WN7" target="_blank" class="btn-outline"><i class="fas fa-map-marked-alt"></i> Google Maps</a>
+                    <a href="https://pathakshamabesh.com/katabon" target="_blank" class="btn-outline"><i class="fas fa-info-circle"></i> Know More</a>
+                </div>
             </div>
-            <div class="card" data-aos="fade-up" data-aos-delay="200">
-                <i class="fas fa-coffee"></i>
-                <h3>রিডিং ক্যাফে</h3>
-                <p>কফির মগে চুমুক দিতে দিতে বই পড়ার জন্য আমাদের রয়েছে শান্ত ও মনোরম পরিবেশ।</p>
-            </div>
-            <div class="card" data-aos="fade-up" data-aos-delay="300">
-                <i class="fas fa-truck"></i>
-                <h3>হোম ডেলিভারি</h3>
-                <p>দেশের যেকোনো প্রান্তে ঘরে বসে দ্রুততম সময়ে বই পেয়ে যাওয়ার নিশ্চয়তা।</p>
+            
+            <!-- Outlet 2 -->
+            <div class="outlet-card" data-aos="fade-left">
+                <h3><i class="fas fa-building"></i> আউটলেট ২ (Shahbag)</h3>
+                <div class="outlet-info">
+                    <p><i class="fas fa-map-marker-alt"></i> <span>Building #4, 1st Floor, Bangladesh National Museum (Opposite to Aziz Market) Shahbag, Dhaka 1000</span></p>
+                    <p><i class="fas fa-clock"></i> <span>10 AM - 9 PM (Everyday)</span></p>
+                    <p><i class="fas fa-phone-alt"></i> <span>01841234612</span></p>
+                </div>
+                <div class="outlet-links">
+                    <a href="https://maps.app.goo.gl/SmEwug8TsYKJE3fw6" target="_blank" class="btn-outline"><i class="fas fa-map-marked-alt"></i> Google Maps</a>
+                    <a href="https://pathakshamabesh.com/pathak-shamabesh-center-shahbag" target="_blank" class="btn-outline"><i class="fas fa-info-circle"></i> Know More</a>
+                </div>
             </div>
         </div>
     </section>
 
-    <!-- Floating Buttons -->
-    <a href="https://wa.me/+8801XXXXXXXXX" class="floating-whatsapp" target="_blank">
+    <!-- Contact Section -->
+    <section id="contact">
+        <h2 class="section-title" data-aos="fade-up">যোগাযোগ</h2>
+        <div class="contact-grid">
+            <a href="tel:+8801841234601" class="contact-item c-call" data-aos="zoom-in" data-aos-delay="100">
+                <i class="fas fa-phone-alt"></i>
+                <p>Call</p>
+            </a>
+            <a href="https://wa.me/8801841234601" target="_blank" class="contact-item c-wa" data-aos="zoom-in" data-aos-delay="200">
+                <i class="fab fa-whatsapp"></i>
+                <p>WhatsApp</p>
+            </a>
+            <a href="https://www.facebook.com/PathakShamabeshDHK" target="_blank" class="contact-item c-fb" data-aos="zoom-in" data-aos-delay="300">
+                <i class="fab fa-facebook-f"></i>
+                <p>Facebook</p>
+            </a>
+            <a href="https://www.youtube.com/@pathakshamabeshltd" target="_blank" class="contact-item c-yt" data-aos="zoom-in" data-aos-delay="400">
+                <i class="fab fa-youtube"></i>
+                <p>YouTube</p>
+            </a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="footer">
+        <div class="footer-logo">
+            <img src="Pathak%20color%20Final.png" alt="Pathak Shamabesh">
+        </div>
+        <div class="footer-since">Since 1987</div>
+        <a href="https://pathakshamabesh.com/" target="_blank" class="btn-outline" style="color:white; border-color:white;">Visit Website</a>
+        <p style="margin-top: 30px; font-size: 0.9rem; color: #aaa;">&copy; 2026 Pathak Shamabesh. All Rights Reserved.</p>
+    </footer>
+
+    <!-- Floating WhatsApp -->
+    <a href="https://wa.me/8801841234601" target="_blank" class="float-wa">
         <i class="fab fa-whatsapp"></i>
     </a>
-    
-    <button id="backToTopBtn" class="back-to-top" onclick="scrollToTop()">
-        <i class="fas fa-arrow-up"></i>
-    </button>
 
-    <!-- AOS Animation JS -->
+    <!-- Back to Top Button -->
+    <div class="back-to-top" onclick="window.scrollTo(0,0)">
+        <i class="fas fa-chevron-up"></i>
+    </div>
+
+    <!-- AOS JS for Scroll Animations -->
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     
-    <!-- Custom JS (Simple & Safe Version) -->
     <script>
-        // নিরাপদ স্প্ল্যাশ স্ক্রিন লজিক (সাদা হয়ে আটকে থাকবে না)
-        setTimeout(function() {
-            var splash = document.getElementById('splashScreen');
-            if (splash) {
-                splash.style.opacity = '0';
-                setTimeout(function() {
-                    splash.style.display = 'none';
-                    // স্প্ল্যাশ স্ক্রিন যাওয়ার পর অ্যানিমেশন শুরু হবে
-                    AOS.init({
-                        once: true,
-                        offset: 100
-                    });
-                }, 500);
-            }
-        }, 1000); // ১ সেকেন্ড পর স্প্ল্যাশ স্ক্রিন চলে যাবে
+        // Initialize Scroll Animations
+        AOS.init({
+            once: true,
+            offset: 100,
+        });
 
-        // Back to Top Button Logic
-        window.addEventListener('scroll', function() {
-            var backToTop = document.getElementById('backToTopBtn');
-            if (backToTop) {
-                if (window.scrollY > 300) {
-                    backToTop.classList.add('show');
-                } else {
-                    backToTop.classList.remove('show');
-                }
-            }
+        // Splash Screen Logic (1.5 seconds)
+        window.addEventListener('load', function() {
+            setTimeout(function() {
+                const splash = document.getElementById('splash-screen');
+                splash.classList.add('hidden');
+                // Allow scrolling after splash is gone
+                setTimeout(() => {
+                    splash.style.display = 'none';
+                }, 500);
+            }, 1500);
         });
 
         // Mobile Menu Toggle
         function toggleMenu() {
-            var navMenu = document.getElementById('navMenu');
-            if (navMenu) {
-                navMenu.classList.toggle('active');
-            }
+            document.getElementById('nav-links').classList.toggle('active');
         }
 
-        // Scroll to Top Function
-        function scrollToTop() {
-            window.scrollTo({
-                top: 0,
-                behavior: 'smooth'
+        // Close mobile menu on click
+        document.querySelectorAll('#nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                document.getElementById('nav-links').classList.remove('active');
             });
-        }
+        });
+
+        // Back to Top Button visibility
+        window.addEventListener('scroll', function() {
+            const backToTop = document.querySelector('.back-to-top');
+            if (window.scrollY > 300) {
+                backToTop.classList.add('show');
+            } else {
+                backToTop.classList.remove('show');
+            }
+        });
     </script>
 </body>
 </html>
