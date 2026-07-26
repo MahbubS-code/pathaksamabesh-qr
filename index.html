@@ -39,6 +39,7 @@
             color: var(--text-dark);
             line-height: 1.6;
             overflow-x: hidden;
+            background-color: var(--bg-light);
         }
 
         a {
@@ -72,14 +73,9 @@
             100% { transform: scale(1); opacity: 1; }
         }
 
-        /* Fallback for users with disabled JavaScript */
-        noscript .splash-screen {
-            display: none !important;
-        }
-
         /* ================= Header & Navigation ================= */
         header {
-            position: fixed;
+            position: absolute;
             top: 0;
             left: 0;
             width: 100%;
@@ -88,16 +84,8 @@
             justify-content: space-between;
             align-items: center;
             z-index: 1000;
-            transition: all 0.3s ease;
-            background: transparent; /* Transparent at top */
-        }
-
-        /* Header Scroll Effect Class */
-        header.scrolled {
             background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
             box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-            padding: 10px 50px;
         }
 
         .logo h1 {
@@ -169,13 +157,12 @@
             background: #c0392b;
         }
 
-        /* ================= About Section (Noto Serif Bengali) ================= */
+        /* ================= About Section (Only Noto Serif Bengali) ================= */
         .about-section {
             padding: 80px 10%;
             text-align: center;
             background-color: var(--bg-light);
-            /* Specifically applying Noto Serif Bengali here as requested */
-            font-family: var(--font-serif); 
+            font-family: var(--font-serif); /* শুধু এই সেকশনে Noto Serif Bengali ফন্ট দেওয়া হলো */
         }
 
         .about-section h2 {
@@ -193,7 +180,7 @@
             line-height: 1.8;
         }
 
-        /* ================= CSS Grid Sections (Features & Outlets) ================= */
+        /* ================= CSS Grid Sections ================= */
         .grid-section {
             padding: 80px 10%;
         }
@@ -252,11 +239,6 @@
             font-size: 30px;
             box-shadow: 0 4px 10px rgba(0,0,0,0.3);
             z-index: 100;
-            transition: transform 0.3s;
-        }
-
-        .floating-whatsapp:hover {
-            transform: scale(1.1);
         }
 
         .back-to-top {
@@ -289,7 +271,6 @@
         /* ================= Responsive Design ================= */
         @media (max-width: 768px) {
             header { padding: 15px 20px; }
-            header.scrolled { padding: 15px 20px; }
             
             nav ul {
                 display: none;
@@ -312,13 +293,10 @@
 </head>
 <body>
 
-    <!-- Splash Screen (JS will remove this, Noscript will hide it for non-JS users) -->
-    <noscript>
-        <style>.splash-screen { display: none !important; }</style>
-    </noscript>
+    <!-- Splash Screen -->
     <div class="splash-screen" id="splashScreen">
-        <!-- ইমেজ অপ্টিমাইজেশনের জন্য .webp ফরম্যাট ব্যবহারের পরামর্শ দেওয়া হলো -->
-        <img src="Pathak-color-Final.webp" alt="Pathak Shamabesh Logo" class="splash-logo" onerror="this.src='https://via.placeholder.com/200?text=Logo'">
+        <!-- ইমেজ লিংকটি আপডেট করা হয়েছে -->
+        <img src="image_56813d.png" alt="Pathak Shamabesh Logo" class="splash-logo">
     </div>
 
     <!-- Header -->
@@ -334,8 +312,7 @@
                 <li><a href="#contact">যোগাযোগ</a></li>
             </ul>
         </nav>
-        <!-- Accessibility: aria-label added -->
-        <button class="mobile-menu-btn" onclick="toggleMenu()" aria-label="Open Mobile Menu">
+        <button class="mobile-menu-btn" onclick="toggleMenu()">
             <i class="fas fa-bars"></i>
         </button>
     </header>
@@ -349,7 +326,7 @@
         </div>
     </section>
 
-    <!-- About Section (Specifically styled with Noto Serif Bengali) -->
+    <!-- About Section -->
     <section id="about" class="about-section">
         <div data-aos="fade-up">
             <h2>আমাদের সম্পর্কে</h2>
@@ -357,7 +334,7 @@
         </div>
     </section>
 
-    <!-- Features Section (Grid) -->
+    <!-- Features Section -->
     <section id="features" class="grid-section">
         <h2 class="section-title" data-aos="fade-up">আমাদের সেবাসমূহ</h2>
         <div class="grid-container">
@@ -380,53 +357,38 @@
     </section>
 
     <!-- Floating Buttons -->
-    <!-- Accessibility: aria-label added -->
-    <a href="https://wa.me/+8801XXXXXXXXX" class="floating-whatsapp" target="_blank" aria-label="Chat with us on WhatsApp">
+    <a href="https://wa.me/+8801XXXXXXXXX" class="floating-whatsapp" target="_blank">
         <i class="fab fa-whatsapp"></i>
     </a>
     
-    <button id="backToTopBtn" class="back-to-top" onclick="scrollToTop()" aria-label="Scroll back to top">
+    <button id="backToTopBtn" class="back-to-top" onclick="scrollToTop()">
         <i class="fas fa-arrow-up"></i>
     </button>
 
     <!-- AOS Animation JS -->
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     
-    <!-- Custom JS -->
+    <!-- Custom JS (Simple & Safe Version) -->
     <script>
-        // Splash Screen Logic (Updated for safety)
-        document.addEventListener("DOMContentLoaded", function() {
-            setTimeout(function() {
-                const splash = document.getElementById('splashScreen');
-                if (splash) {
-                    splash.style.opacity = '0';
-                    setTimeout(function() {
-                        splash.style.display = 'none';
-                        
-                        // Initialize AOS Animation ONLY after splash screen hides
-                        // This prevents blank screen issues with AOS
-                        AOS.init({
-                            once: true,
-                            offset: 100
-                        });
-                    }, 500);
-                }
-            }, 1000); // 1 second delay (reduced for faster loading)
-        });
-
-        // Header Scroll Effect & Back to Top Button Logic
-        window.addEventListener('scroll', () => {
-            const header = document.getElementById('mainHeader');
-            const backToTop = document.getElementById('backToTopBtn');
-            
-            if (header) {
-                if (window.scrollY > 50) {
-                    header.classList.add('scrolled');
-                } else {
-                    header.classList.remove('scrolled');
-                }
+        // নিরাপদ স্প্ল্যাশ স্ক্রিন লজিক (সাদা হয়ে আটকে থাকবে না)
+        setTimeout(function() {
+            var splash = document.getElementById('splashScreen');
+            if (splash) {
+                splash.style.opacity = '0';
+                setTimeout(function() {
+                    splash.style.display = 'none';
+                    // স্প্ল্যাশ স্ক্রিন যাওয়ার পর অ্যানিমেশন শুরু হবে
+                    AOS.init({
+                        once: true,
+                        offset: 100
+                    });
+                }, 500);
             }
+        }, 1000); // ১ সেকেন্ড পর স্প্ল্যাশ স্ক্রিন চলে যাবে
 
+        // Back to Top Button Logic
+        window.addEventListener('scroll', function() {
+            var backToTop = document.getElementById('backToTopBtn');
             if (backToTop) {
                 if (window.scrollY > 300) {
                     backToTop.classList.add('show');
@@ -438,7 +400,7 @@
 
         // Mobile Menu Toggle
         function toggleMenu() {
-            const navMenu = document.getElementById('navMenu');
+            var navMenu = document.getElementById('navMenu');
             if (navMenu) {
                 navMenu.classList.toggle('active');
             }
@@ -452,3 +414,5 @@
             });
         }
     </script>
+</body>
+</html>
