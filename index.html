@@ -4,18 +4,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pathak Shamabesh</title>
-    <!-- Google Fonts for Bengali Typography -->
+    
+    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Bengali:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <!-- FontAwesome for Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600;700&family=Noto+Serif+Bengali:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- AOS Animation CSS -->
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet"
+    
+    <!-- AOS CSS -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
     <style>
         :root {
             --primary-color: #2c3e50;
             --secondary-color: #e67e22;
+            --title-color: #900C3F; /* সেকশন টাইটেলের নতুন এবং আকর্ষণীয় কালার */
             --bg-color: #f9f9f9;
             --yellow-15: rgba(255, 215, 0, 0.15);
             --text-color: #333;
@@ -125,9 +130,9 @@
             cursor: pointer;
         }
 
-        /* --- Home Section --- */
+        /* --- Home Section (Patla Banner) --- */
         #home {
-            height: 50vh;
+            height: 50vh; /* ব্যানার পাতলা বা ছোট করার জন্য উচ্চতা 50vh করা হয়েছে */
             background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1507842217343-583bb7270b66?q=80&w=2000&auto=format&fit=crop') center/cover no-repeat;
             display: flex;
             flex-direction: column;
@@ -136,28 +141,28 @@
             text-align: center;
             color: var(--white);
             padding: 0 20px;
-            margin-top: 0;
+            margin-top: 70px;
         }
         .home-subtitle {
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             font-weight: 300;
             letter-spacing: 2px;
-            margin-bottom: 10px;
+            margin-bottom: 8px;
             text-transform: uppercase;
             color: var(--secondary-color);
         }
         .home-title {
-            font-size: 2.5rem;
+            font-size: 2.2rem;
             font-weight: 700;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
             max-width: 800px;
         }
         .btn {
-            padding: 12px 30px;
+            padding: 10px 25px;
             background-color: var(--secondary-color);
             color: var(--white);
             border-radius: 30px;
-            font-size: 1.1rem;
+            font-size: 1rem;
             font-weight: 600;
             display: inline-flex;
             align-items: center;
@@ -173,12 +178,13 @@
 
         /* --- Common Section Styles --- */
         section {
-            padding: 80px 5%;
+            padding: 70px 5%;
         }
         .section-title {
             text-align: center;
-            font-size: 2rem;
-            color: var(--primary-color);
+            font-size: 2.2rem;
+            color: var(--title-color); /* নতুন কালার 적용 */
+            font-family: 'Noto Serif Bengali', serif; /* ফন্ট পরিবর্তন করে Noto Serif Bengali করা হয়েছে */
             margin-bottom: 40px;
             font-weight: 700;
         }
@@ -406,7 +412,7 @@
                 display: flex;
             }
             .home-title {
-                font-size: 1.8rem;
+                font-size: 1.6rem;
             }
             .about-card {
                 padding: 20px;
@@ -428,9 +434,10 @@
 <body>
 
     <!-- Splash Screen -->
-<div id="splash-screen">
-    <img src="Pathak%20color%20Final.png" alt="Pathak Shamabesh Logo" class="splash-logo">
-</div>
+    <div id="splash-screen">
+        <img src="Pathak%20color%20Final.png" alt="Pathak Shamabesh Logo" class="splash-logo">
+        <div class="splash-text">Since 1987</div>
+    </div>
 
     <!-- Header -->
     <header id="header">
@@ -452,7 +459,8 @@
     <!-- Home Section -->
     <section id="home">
         <div data-aos="zoom-in" data-aos-duration="1000">
-            <h1 class="home-title">"৪০ বছর ধরে পাঠকের মননে ও গড়নে পাঠক সমাবেশ"</h1>
+            <div class="home-subtitle">Since 1987</div>
+            <h1 class="home-title">"৪০ বছর ধরে পাঠকের মননে ও গড়নে"</h1>
             <a href="https://pathakshamabesh.com/" class="btn" target="_blank">
                 <i class="fas fa-book"></i> Visit Online Store
             </a>
@@ -463,8 +471,16 @@
     <section id="about">
         <h2 class="section-title" data-aos="fade-up">আমাদের সম্পর্কে</h2>
         <div class="about-card" data-aos="fade-up" data-aos-delay="100">
-            <p><strong>পাঠক সমাবেশ</strong> — শুধু একটি বইয়ের বিক্রয়কেন্দ্র নয়, এটি একটি চিন্তাশীল সমাজ গঠনের নির্ভরযোগ্য অংশীদার। ১৯৮৭ সালে ছোট পরিসরে যাত্রা শুরু করে, পাঠক সমাবেশ আজ বাংলাদেশের অন্যতম প্রধান ও গতিশীল বইভিত্তিক প্রতিষ্ঠান হিসেবে পরিচিত。</p>
-            <p>প্রতিষ্ঠানটির মূল শেকড় গ্রথিত রয়েছে বইয়ের প্রতি ভালোবাসা ও পাঠচর্চার প্রসারে।</p>
+            <p><strong>পাঠক সমাবেশ</strong> — শুধু একটি বইয়ের বিক্রয়কেন্দ্র নয়, এটি একটি চিন্তাশীল সমাজ গঠনের নির্ভরযোগ্য অংশীদার। ১৯৮৭ সালে ছোট পরিসরে যাত্রা শুরু করে, পাঠক সমাবেশ আজ বাংলাদেশের অন্যতম প্রধান ও গতিশীল বইভিত্তিক প্রতিষ্ঠান হিসেবে পরিচিত।</p>
+            <p>প্রতিষ্ঠানটির মূল শেকড় গ্রথিত রয়েছে বইয়ের প্রতি ভালোবাসা ও পাঠচর্চার প্রসারে। সময়ের সঙ্গে তাল মিলিয়ে, পাঠক সমাবেশ আজ শুধুই বই বিক্রির মধ্যে সীমাবদ্ধ নেই। আমরা তৈরি করেছি একটি অনলাইন লাইফস্টাইল মার্কেটপ্লেস, যেখানে পাওয়া যাবে:</p>
+            <ul>
+                <li>দেশি ও আন্তর্জাতিক মানসম্পন্ন বই</li>
+                <li>ইলেকট্রনিক পণ্য</li>
+                <li>দৈনন্দিন নিত্যপ্রয়োজনীয় সামগ্রী</li>
+                <li>সুপারশপ আইটেম</li>
+                <li>স্বাস্থ্য ও লাইফস্টাইল পণ্য</li>
+                <li>গ্রাহকভিত্তিক কাস্টমাইজড পরিষেবা (Readers’ Club Membership, Gift Card, Subscription ইত্যাদি)</li>
+            </ul>
             <p>পাঠক সমাবেশ বিশ্বাস করে—জ্ঞান অর্জন আর সহজ জীবনযাত্রা একে অপরের পরিপূরক। তাই আমরা প্রযুক্তির সর্বোচ্চ ব্যবহার করে বইপ্রেমী, সাধারণ ক্রেতা ও কর্পোরেট গ্রাহকদের জন্য নির্ভরযোগ্য সেবা নিশ্চিত করতে প্রতিশ্রুতিবদ্ধ।</p>
             <p><strong>আমাদের রয়েছে:</strong></p>
             <ul>
@@ -579,41 +595,35 @@
         <i class="fas fa-chevron-up"></i>
     </div>
 
-    <!-- AOS JS for Scroll Animations -->
+    <!-- AOS JS -->
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     
     <script>
-        // Initialize Scroll Animations
         AOS.init({
             once: true,
             offset: 100,
         });
 
-        // Splash Screen Logic (1.5 seconds)
         window.addEventListener('load', function() {
             setTimeout(function() {
                 const splash = document.getElementById('splash-screen');
                 splash.classList.add('hidden');
-                // Allow scrolling after splash is gone
                 setTimeout(() => {
                     splash.style.display = 'none';
                 }, 500);
             }, 1500);
         });
 
-        // Mobile Menu Toggle
         function toggleMenu() {
             document.getElementById('nav-links').classList.toggle('active');
         }
 
-        // Close mobile menu on click
         document.querySelectorAll('#nav-links a').forEach(link => {
             link.addEventListener('click', () => {
                 document.getElementById('nav-links').classList.remove('active');
             });
         });
 
-        // Back to Top Button visibility
         window.addEventListener('scroll', function() {
             const backToTop = document.querySelector('.back-to-top');
             if (window.scrollY > 300) {
